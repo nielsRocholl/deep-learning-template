@@ -1,0 +1,43 @@
+optimizer: {
+  type: Adam,
+  kwargs: {
+    lr: 0.001, 
+    weight_decay: 0.05
+  }
+}
+
+scheduler: {
+  type: CosLR, 
+  kwargs: {
+    epochs: 300,
+  } 
+}
+
+dataset: {
+  train: cfgs/dataset_cfgs/example_dataset.yaml,
+  val: cfgs/dataset_cfgs/example_dataset.yaml, 
+  test: cfgs/dataset_cfgs/example_dataset.yaml
+}
+
+device: {
+  name: cuda, 
+  device_id: 1, # select the second H100 (the first is used by Guido)
+  deterministic: true,  # Ensure deterministic behavior (useful for reproducibility)
+  benchmark: true,  # Enable cudnn auto-tuner to find the best algorithm to use for your hardware
+}
+
+model: {
+  name: TARS,
+  loss: cdl2,
+  transformer_config: {
+    mask_ratio: 0.6,
+    mask_type: 'rand',
+    trans_dim: 384,
+    encoder_dims: 384,
+    depth: 12,
+    drop_path_rate: 0.1,
+    num_heads: 6,
+    decoder_depth: 4,
+    decoder_num_heads: 6,
+  },
+}

@@ -1,0 +1,4 @@
+NAME: PartNet
+DATA_PATH: /srv/healthcare/datascience/data/part-net/data_v0/
+N_SAMPLES: 26671
+NUM_CATEGORY: 24
